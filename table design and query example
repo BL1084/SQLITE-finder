@@ -1,0 +1,18 @@
+CREATE TABLE [mob_database](
+  [name], 
+  [zone], 
+  [room], 
+  [level], 
+  [kill_count] INTEGER DEFAULT 0, 
+  [rname], 
+  [minlvl] INTEGER, 
+  [maxlvl] INTEGER, 
+  CONSTRAINT [uEntry] UNIQUE([name], [zone], [room], [level]) ON CONFLICT IGNORE);
+  
+  --table design, its possible to get multiple mobile units in different rnames so we want kill_count to be the top priority here.
+  
+  SELECT a.name AS name1, b.rname AS rname2, a.zone AS zone1
+  FROM mob_database a, mob_database b
+  WHERE name1 = "generic_mob_name" AND zone1 = "generic_zone_name" AND rname2 = "generic_room_name";
+  
+  --made to cater to a specific type of quest. we want to query against the database itself to get a result that satisfies room name but returns the zone and room also.
